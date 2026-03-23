@@ -10,7 +10,6 @@
 
 | # | Projet | Technologies | Statut |
 |---|---|---|---|
-| 1 | [OpenBank Infrastructure SI](#1--openbank-infrastructure-si) | VirtualBox · Windows Server 2022 · Active Directory · Stormshield SNS | Finalisé |
 | 2 | [DVWA & WAF ModSecurity](#2--dvwa--waf-modsecurity) | VirtualBox · Ubuntu Server · Apache2 · ModSecurity · OWASP CRS | Finalisé |
 
 ---

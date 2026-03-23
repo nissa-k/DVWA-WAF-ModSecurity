@@ -6,12 +6,6 @@
 
 ---
 
-## Projets
-
-| # | Projet | Technologies | Statut |
-|---|---|---|---|
-| 2 | [DVWA & WAF ModSecurity](#2--dvwa--waf-modsecurity) | VirtualBox · Ubuntu Server · Apache2 · ModSecurity · OWASP CRS | Finalisé |
-
 ---
 
 ## 1 — OpenBank Infrastructure SI

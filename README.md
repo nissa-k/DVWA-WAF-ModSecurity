@@ -6,67 +6,7 @@
 
 ---
 
-
-## 1 — OpenBank Infrastructure SI
-
-> Raccordement SI & Sécurité bout en bout — `openbank.loc`
-
-### Description
-
-Mise en œuvre d'une infrastructure réseau multi-sites pour la société fictive **OpenBank**, simulant l'interconnexion sécurisée de deux sites distants (Paris et Nantes) avec Active Directory centralisé, tunnel VPN IPsec et firewalls Stormshield SNS.
-
-### Architecture
-
-```
-Site Paris                               Site Nantes
-──────────────────────                   ──────────────────────
-SNS-PARIS (Stormshield EVA1)             SNS-NANTES (Stormshield EVA1)
-  WAN : 192.36.253.10/24   ◄──VPN──►      WAN : 192.36.253.20/24
-  LAN : 10.0.1.1/24                        LAN : 10.0.2.1/24
-
-SRV-PARIS-DC (Windows Server 2022 GUI)  SRV-NANTES-RODC (Windows Server 2022 Core)
-  IP : 10.0.1.10/24                        IP : 10.0.2.10/24
-  Rôle : DC Principal                      Rôle : Contrôleur en lecture seule
-
-Domaine Active Directory : openbank.loc
-```
-
-### Étapes réalisées
-
-| Étape | Description |
-|---|---|
-| 1 | VirtualBox — réseau NAT `192.36.253.0/24`, import des 2 firewalls |
-| 2 | Windows Server 2022 Paris — IP statique `10.0.1.10`, désactivation IPv6 |
-| 3 | Active Directory — nouvelle forêt `openbank.loc`, OU, 4 groupes, 4 utilisateurs |
-| 4 | RODC Nantes — installation Core, promotion PowerShell `-UseExistingAccount` |
-| 5 | Stormshield — PKI inter-sites (RSA 4096), VPN IPsec IKEv2, filtrage, LDAP |
-
-### Bilan
-
-| Objectif | Statut |
-|---|---|
-| VirtualBox + firewalls SNS | OK |
-| Windows Server 2022 Paris (GUI) | OK |
-| Active Directory + domaine openbank.loc | OK |
-| Structure OU + Groupes + Utilisateurs | OK |
-| Windows Server 2022 Nantes (Core) | OK |
-| RODC Nantes joint au domaine | OK |
-| PKI — CA Paris & CA Nantes | OK |
-| Certificats serveurs | OK |
-| Règles de filtrage inter-sites | OK |
-| Intégration LDAP / AD | OK |
-| VPN IPsec site-à-site | Partiel — bug interne EVA |
-
-### Problèmes rencontrés
-
-- **Compatibilité navigateur** : Stormshield EVA 4.8.6 incompatible Chrome/Edge → résolu avec Firefox
-- **RAM insuffisante** : augmentation à 4 Go / 4 vCPU pour les VMs firewall
-- **Promotion RODC** : nécessite l'installation préalable du rôle AD DS + paramètre `-UseExistingAccount`
-- **Tunnel VPN non établi** : incohérence interne EVA dans la gestion des certificats RSA
-
----
-
-## 2 — DVWA & WAF ModSecurity
+## 1 — DVWA & WAF ModSecurity
 
 > Installation de DVWA & Mise en place d'un WAF — Décembre 2025
 
